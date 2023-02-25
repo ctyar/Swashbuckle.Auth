@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Swashbuckle\Swashbuckle.csproj" />
+    <ProjectReference Include="..\..\Swashbuckle\Swashbuckle.csproj" />
   </ItemGroup>
 
 </Project>

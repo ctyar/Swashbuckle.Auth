@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33417.168
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Swashbuckle", "Swashbuckle\Swashbuckle.csproj", "{1F632314-9557-4DA3-B45E-4206CBC572C2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Swashbuckle", "src\Swashbuckle\Swashbuckle.csproj", "{1F632314-9557-4DA3-B45E-4206CBC572C2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer", "Sample\IdentityServer.csproj", "{3758FE60-E585-4AD6-A45E-9624353A8BD7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer", "src\samples\IdentityServer\IdentityServer.csproj", "{3758FE60-E585-4AD6-A45E-9624353A8BD7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
