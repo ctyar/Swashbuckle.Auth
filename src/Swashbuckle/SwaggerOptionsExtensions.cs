@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Web;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.OpenApi.Models;
@@ -17,6 +18,27 @@ public static class SwaggerOptionsExtensions
         var authoritUrl = new Uri(authority);
 
         AddOAuth2(options, new Uri(authoritUrl, "connect/authorize"), new Uri(authoritUrl, "connect/token"));
+    }
+
+    public static void AddAuth0(this SwaggerGenOptions options, string authority, string audience)
+    {
+        var authorityUrl = new Uri(authority);
+
+        var httpValueCollection = HttpUtility.ParseQueryString(authorityUrl.Query);
+        httpValueCollection.Add("audience", audience);
+
+        var authorizationUrl = new UriBuilder(authorityUrl)
+        {
+            Query = httpValueCollection.ToString(),
+            Path = "authorize"
+        }.Uri;
+
+        var tokenUrl = new UriBuilder(authorityUrl)
+        {
+            Path = "oauth/token"
+        }.Uri;
+
+        AddOAuth2(options, authorizationUrl, tokenUrl);
     }
 
     public static void AddOAuth2(this SwaggerGenOptions options, Uri authorizationUrl, Uri tokenUrl)
@@ -54,6 +76,11 @@ public static class SwaggerOptionsExtensions
     }
 
     public static void UseIdentityServer(this SwaggerUIOptions options, string clientId, params string[] scopes)
+    {
+        UseOAuth2(options, clientId, scopes);
+    }
+
+    public static void UseAuth0(this SwaggerUIOptions options, string clientId, params string[] scopes)
     {
         UseOAuth2(options, clientId, scopes);
     }
