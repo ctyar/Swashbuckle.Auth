@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace Sample;
 
@@ -7,30 +8,33 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        // Add services to the container.
+        builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(o =>
+            {
+                o.Authority = "https://demo.duendesoftware.com/";
+                o.Audience = "api";
+            });
+
+        builder.Services.AddAuthorization();
 
         builder.Services.AddControllers();
-        // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen(c =>
         {
-            c.AddOAuth2(new Uri("https://demo.duendesoftware.com/connect/authorize"), new Uri("https://demo.duendesoftware.com//connect/token"));
+            c.AddIdentityServer("https://demo.duendesoftware.com/");
         });
 
         var app = builder.Build();
 
-        // Configure the HTTP request pipeline.
-        if (app.Environment.IsDevelopment())
+        app.UseSwagger();
+        app.UseSwaggerUI(c =>
         {
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.UseOAuth2("interactive.public", "openid", "profile", "offline_access");
-            });
-        }
+            c.UseIdentityServer("interactive.public", "openid", "profile", "email", "api", "offline_access");
+        });
 
+        app.UseAuthentication();
         app.UseAuthorization();
-
 
         app.MapControllers();
 

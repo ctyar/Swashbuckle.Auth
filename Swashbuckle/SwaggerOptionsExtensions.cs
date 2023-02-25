@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -13,6 +12,13 @@ public static class SwaggerOptionsExtensions
 {
     private static string[] Scopes;
 
+    public static void AddIdentityServer(this SwaggerGenOptions options, string authority)
+    {
+        var authoritUrl = new Uri(authority);
+
+        AddOAuth2(options, new Uri(authoritUrl, "connect/authorize"), new Uri(authoritUrl, "connect/token"));
+    }
+
     public static void AddOAuth2(this SwaggerGenOptions options, Uri authorizationUrl, Uri tokenUrl)
     {
         options.AddSecurityDefinition("oAuth2", new OpenApiSecurityScheme
@@ -24,7 +30,7 @@ public static class SwaggerOptionsExtensions
                 {
                     AuthorizationUrl = authorizationUrl,
                     TokenUrl = tokenUrl,
-                    Scopes = Scopes.ToDictionary(item => item, item => item)
+                    Scopes = Scopes?.ToDictionary(item => item, item => item),
                 }
             }
         });
@@ -47,13 +53,23 @@ public static class SwaggerOptionsExtensions
         options.OperationFilter<SecurityRequirementsOperationFilter>();
     }
 
+    public static void UseIdentityServer(this SwaggerUIOptions options, string clientId, params string[] scopes)
+    {
+        UseOAuth2(options, clientId, scopes);
+    }
+
     public static void UseOAuth2(this SwaggerUIOptions options, string clientId, params string[] scopes)
     {
-        Scopes = scopes;
+        Scopes = scopes.Length > 0 ? scopes : null;
 
         options.OAuthClientId(clientId);
 
-        options.OAuthScopes(Scopes);
+        if (Scopes is not null)
+        {
+            options.OAuthScopes(Scopes);
+        }
+
+        options.OAuthUsePkce();
     }
 }
 
@@ -72,28 +88,5 @@ internal class SecurityRequirementsOperationFilter : IOperationFilter
 
         operation.Responses.Add("401", new OpenApiResponse { Description = "Unauthorized" });
         operation.Responses.Add("403", new OpenApiResponse { Description = "Forbidden" });
-
-        // Policy names map to scopes
-        var requiredScopes = context.MethodInfo
-            .GetCustomAttributes(true)
-            .OfType<AuthorizeAttribute>()
-            .Select(attr => attr.Policy)
-            .Distinct();
-
-        if (requiredScopes.Any())
-        {
-            var oAuthScheme = new OpenApiSecurityScheme
-            {
-                Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "oauth2" }
-            };
-
-            operation.Security = new List<OpenApiSecurityRequirement>
-            {
-                new OpenApiSecurityRequirement
-                {
-                    [ oAuthScheme ] = requiredScopes.ToList()
-                }
-            };
-        }
     }
 }
