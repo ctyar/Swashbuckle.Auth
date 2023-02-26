@@ -1,8 +1,5 @@
 # https://docs.microsoft.com/azure/devops/pipelines/yaml-schema
 
-variables:
-  - group: 'Secrets'
-
 stages:
 - stage: BuildStage
   displayName: 'Build'
