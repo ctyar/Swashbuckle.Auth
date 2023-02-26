@@ -12,6 +12,9 @@ stages:
       clean: all
 
     steps:
+    - checkout: self
+      fetchDepth: 0
+
     - task: UseDotNet@2
       displayName: 'Install .NET SDK'
       inputs:
