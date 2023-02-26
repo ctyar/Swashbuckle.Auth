@@ -1,0 +1,31 @@
+# https://docs.microsoft.com/azure/devops/pipelines/yaml-schema
+
+variables:
+  - group: 'Secrets'
+
+stages:
+- stage: BuildStage
+  displayName: 'Build'
+  jobs:
+  - job: BuildJob
+    displayName: 'Build'
+    pool:
+      vmImage: 'ubuntu-latest'
+    workspace:
+      clean: all
+
+    steps:
+    - task: UseDotNet@2
+      displayName: 'Install .NET SDK'
+      inputs:
+        useGlobalJson: true
+
+    - task: DotNetCoreCLI@2
+      displayName: 'Pack'
+      inputs:
+        command: pack
+        packDirectory: 'artifacts'
+
+    - publish: '$(Build.Repository.LocalPath)/artifacts'
+      displayName: 'Publish artifacts'
+      artifact: 'packages'
