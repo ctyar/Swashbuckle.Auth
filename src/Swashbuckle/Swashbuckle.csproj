@@ -3,6 +3,21 @@
   <PropertyGroup>
     <TargetFrameworks>net6.0;net7.0</TargetFrameworks>
     <OpenApiGenerateDocuments>false</OpenApiGenerateDocuments>
+    <LangVersion>preview</LangVersion>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Ctyar.Swashbuckle.Auth</RootNamespace>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <AnalysisLevel>preview</AnalysisLevel>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>Ctyar.Swashbuckle.Auth</PackageId>
+    <PackageTags>swagger;documentation;discovery;help;webapi;aspnet;aspnetcore;auth;authentication;oauth2;auth0;identityserver</PackageTags>
+    <Title>Swashbuckle.Auth</Title>
+    <Description>A package to simplify adding authentication to the Swagger.</Description>
+    <Authors>Shahriyar Qulami</Authors>
+    <PackageProjectUrl>https://github.com/ctyar/Swashbuckle</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/ctyar/Swashbuckle</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
