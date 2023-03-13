@@ -28,6 +28,12 @@ stages:
         arguments: '--verify-no-changes'
 
     - task: DotNetCoreCLI@2
+      inputs:
+        command: 'build'
+        projects: |
+          Swashbuckle.sln
+
+    - task: DotNetCoreCLI@2
       displayName: 'Pack'
       inputs:
         command: pack
