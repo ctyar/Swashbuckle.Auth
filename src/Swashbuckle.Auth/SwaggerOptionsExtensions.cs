@@ -13,14 +13,25 @@ public static class SwaggerOptionsExtensions
 {
     private static string[]? Scopes;
 
-    public static void AddIdentityServer(this SwaggerGenOptions options, string authority)
+    /// <summary>
+    /// Add Duende Identity Server OAuth 2 security definition and a global security requirement, to the generated Swagger
+    /// </summary>
+    /// <param name="swaggerGenOptions"></param>
+    /// <param name="authority">The authority URL to be used for authorizationCode OAuth flow.</param>
+    public static void AddIdentityServer(this SwaggerGenOptions swaggerGenOptions, string authority)
     {
         var authoritUrl = new Uri(authority);
 
-        AddOAuth2(options, new Uri(authoritUrl, "connect/authorize"), new Uri(authoritUrl, "connect/token"));
+        AddOAuth2(swaggerGenOptions, new Uri(authoritUrl, "connect/authorize"), new Uri(authoritUrl, "connect/token"));
     }
 
-    public static void AddAuth0(this SwaggerGenOptions options, string authority, string audience)
+    /// <summary>
+    /// Add Auth0 OAuth 2 security definition and a global security requirement, to the generated Swagger
+    /// </summary>
+    /// <param name="swaggerGenOptions"></param>
+    /// <param name="authority">The authority URL to be used for authorizationCode OAuth flow.</param>
+    /// <param name="audience">The audience to be used for authorizationCode OAuth flow.</param>
+    public static void AddAuth0(this SwaggerGenOptions swaggerGenOptions, string authority, string audience)
     {
         var authorityUrl = new Uri(authority);
 
@@ -38,12 +49,18 @@ public static class SwaggerOptionsExtensions
             Path = "oauth/token"
         }.Uri;
 
-        AddOAuth2(options, authorizationUrl, tokenUrl);
+        AddOAuth2(swaggerGenOptions, authorizationUrl, tokenUrl);
     }
 
-    public static void AddOAuth2(this SwaggerGenOptions options, Uri authorizationUrl, Uri tokenUrl)
+    /// <summary>
+    /// Add OAuth 2 security definitions and a global security requirement, to the generated Swagger
+    /// </summary>
+    /// <param name="swaggerGenOptions"></param>
+    /// <param name="authorizationUrl">The authorization URL to be used for authorizationCode OAuth flow.</param>
+    /// <param name="tokenUrl">The token URL to be used for authorizationCode OAuth flow.</param>
+    public static void AddOAuth2(this SwaggerGenOptions swaggerGenOptions, Uri authorizationUrl, Uri tokenUrl)
     {
-        options.AddSecurityDefinition("oAuth2", new OpenApiSecurityScheme
+        swaggerGenOptions.AddSecurityDefinition("oAuth2", new OpenApiSecurityScheme
         {
             Type = SecuritySchemeType.OAuth2,
             Flows = new OpenApiOAuthFlows
@@ -57,7 +74,7 @@ public static class SwaggerOptionsExtensions
             }
         });
 
-        options.AddSecurityRequirement(new OpenApiSecurityRequirement
+        swaggerGenOptions.AddSecurityRequirement(new OpenApiSecurityRequirement
         {
             {
                 new OpenApiSecurityScheme
@@ -72,19 +89,37 @@ public static class SwaggerOptionsExtensions
             }
         });
 
-        options.OperationFilter<SecurityRequirementsOperationFilter>();
+        swaggerGenOptions.OperationFilter<SecurityRequirementsOperationFilter>();
     }
 
+    /// <summary>
+    /// Set the Duende Identity Server clientId and scopes for the authorizatonCode flow with proof Key for Code Exchange.
+    /// </summary>
+    /// <param name="options"></param>
+    /// <param name="clientId">Default clientId</param>
+    /// <param name="scopes">String array of initially selected OAuth scopes, default is empty array</param>
     public static void UseIdentityServer(this SwaggerUIOptions options, string clientId, params string[] scopes)
     {
         UseOAuth2(options, clientId, scopes);
     }
 
+    /// <summary>
+    /// Set the Auth0 clientId and scopes for the authorizatonCode flow with proof Key for Code Exchange.
+    /// </summary>
+    /// <param name="options"></param>
+    /// <param name="clientId">Default clientId</param>
+    /// <param name="scopes">String array of initially selected OAuth scopes, default is empty array</param>
     public static void UseAuth0(this SwaggerUIOptions options, string clientId, params string[] scopes)
     {
         UseOAuth2(options, clientId, scopes);
     }
 
+    /// <summary>
+    /// Set the clientId and scopes for the authorizatonCode flow with proof Key for Code Exchange.
+    /// </summary>
+    /// <param name="options"></param>
+    /// <param name="clientId">Default clientId</param>
+    /// <param name="scopes">String array of initially selected OAuth scopes, default is empty array</param>
     public static void UseOAuth2(this SwaggerUIOptions options, string clientId, params string[] scopes)
     {
         Scopes = scopes.Length > 0 ? scopes : null;
