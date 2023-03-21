@@ -1,6 +1,7 @@
 # Swashbuckle Auth
 
 [![Build Status](https://ctyar.visualstudio.com/Swashbuckle/_apis/build/status/ctyar.Swashbuckle?branchName=main)](https://ctyar.visualstudio.com/Swashbuckle/_build/latest?definitionId=6&branchName=main)
+[![Ctyar.Swashbuckle.Auth](https://img.shields.io/nuget/v/Ctyar.Swashbuckle.Auth.svg)](https://www.nuget.org/packages/Ctyar.Swashbuckle.Auth/)
 
 A package to simplify adding authentication to the Swagger.
 
