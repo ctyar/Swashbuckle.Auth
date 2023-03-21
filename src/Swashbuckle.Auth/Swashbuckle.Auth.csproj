@@ -18,10 +18,12 @@
     <Authors>Shahriyar Qulami</Authors>
     <PackageProjectUrl>https://github.com/ctyar/Swashbuckle</PackageProjectUrl>
     <RepositoryUrl>https://github.com/ctyar/Swashbuckle</RepositoryUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    <None Include="..\..\README.md" Pack="true" PackagePath="\"/>
   </ItemGroup>
 
 </Project>
