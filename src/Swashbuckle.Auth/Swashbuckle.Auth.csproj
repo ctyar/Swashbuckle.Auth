@@ -12,7 +12,7 @@
 
   <PropertyGroup>
     <PackageId>Ctyar.Swashbuckle.Auth</PackageId>
-    <PackageTags>swagger;documentation;discovery;help;webapi;aspnet;aspnetcore;auth;authentication;oauth2;auth0;identityserver</PackageTags>
+    <PackageTags>swagger;swaggerui;discovery;webapi;aspnet;aspnetcore;auth;authentication;oauth2;auth0;identityserver</PackageTags>
     <Title>Swashbuckle.Auth</Title>
     <Description>A package to simplify adding authentication to the Swagger.</Description>
     <Authors>Shahriyar Qulami</Authors>
