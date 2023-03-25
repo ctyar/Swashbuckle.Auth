@@ -46,6 +46,9 @@ app.UseSwaggerUI(c =>
 });
 ```
 
+## Demo
+![Demo](https://user-images.githubusercontent.com/1432648/227712843-8ffd08f7-0489-46f6-9e46-aeec6e99dac4.gif)
+
 ## Build
 [Install](https://get.dot.net) the [required](global.json) .NET SDK.
 
