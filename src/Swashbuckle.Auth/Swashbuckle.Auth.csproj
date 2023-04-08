@@ -16,8 +16,8 @@
     <Title>Swashbuckle.Auth</Title>
     <Description>A package to simplify adding authentication to the Swagger.</Description>
     <Authors>Shahriyar Qulami</Authors>
-    <PackageProjectUrl>https://github.com/ctyar/Swashbuckle</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/ctyar/Swashbuckle</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/ctyar/Swashbuckle.Auth</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/ctyar/Swashbuckle.Auth</RepositoryUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
