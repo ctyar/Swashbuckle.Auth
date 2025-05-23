@@ -1,13 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
     <OpenApiGenerateDocuments>false</OpenApiGenerateDocuments>
     <LangVersion>preview</LangVersion>
-    <Nullable>enable</Nullable>
     <RootNamespace>Ctyar.Swashbuckle.Auth</RootNamespace>
-    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
-    <AnalysisLevel>preview</AnalysisLevel>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -22,7 +18,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.9.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" />
     <None Include="..\..\README.md" Pack="true" PackagePath="\"/>
   </ItemGroup>
 
