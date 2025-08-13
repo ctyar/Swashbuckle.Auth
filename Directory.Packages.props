@@ -2,21 +2,17 @@
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
- 
   <ItemGroup>
-    <PackageVersion Include="Swashbuckle.AspNetCore" Version="8.1.4" />
+    <PackageVersion Include="Swashbuckle.AspNetCore" Version="9.0.3" />
     <PackageVersion Include="Nerdbank.GitVersioning" Version="3.7.115" />
     <PackageVersion Include="DotNet.ReproducibleBuilds" Version="1.2.25" />
   </ItemGroup>
-
   <ItemGroup Condition="'$(TargetFramework)'=='net8.0'">
-    <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.16" />
-    <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="8.0.16" />
+    <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.19" />
+    <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="8.0.19" />
   </ItemGroup>
-
   <ItemGroup Condition="'$(TargetFramework)'=='net9.0'">
-    <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.5" />
-    <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="9.0.5" />
+    <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.8" />
+    <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="9.0.8" />
   </ItemGroup>
-
 </Project>
