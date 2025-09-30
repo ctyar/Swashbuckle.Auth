@@ -5,7 +5,7 @@
   <ItemGroup>
     <PackageVersion Include="Swashbuckle.AspNetCore" Version="9.0.5" />
     <PackageVersion Include="Nerdbank.GitVersioning" Version="3.8.118" />
-    <PackageVersion Include="DotNet.ReproducibleBuilds" Version="1.2.25" />
+    <PackageVersion Include="DotNet.ReproducibleBuilds" Version="1.2.39" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)'=='net8.0'">
     <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.19" />
