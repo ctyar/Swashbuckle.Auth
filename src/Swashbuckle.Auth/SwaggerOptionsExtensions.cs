@@ -3,7 +3,11 @@ using System.Linq;
 using System.Web;
 using Ctyar.Swashbuckle.Auth;
 using Microsoft.AspNetCore.Builder;
+#if NET10_0_OR_GREATER
+using Microsoft.OpenApi;
+#else
 using Microsoft.OpenApi.Models;
+#endif
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Swashbuckle.AspNetCore.SwaggerUI;
 
@@ -11,6 +15,8 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 public static class SwaggerOptionsExtensions
 {
+    private const string SchemeId = "oAuth2";
+
     private static string[]? Scopes;
 
     /// <summary>
@@ -60,7 +66,7 @@ public static class SwaggerOptionsExtensions
     /// <param name="tokenUrl">The token URL to be used for authorizationCode OAuth flow.</param>
     public static void AddOAuth2(this SwaggerGenOptions swaggerGenOptions, Uri authorizationUrl, Uri tokenUrl)
     {
-        swaggerGenOptions.AddSecurityDefinition("oAuth2", new OpenApiSecurityScheme
+        swaggerGenOptions.AddSecurityDefinition(SchemeId, new OpenApiSecurityScheme
         {
             Type = SecuritySchemeType.OAuth2,
             Flows = new OpenApiOAuthFlows
@@ -74,6 +80,12 @@ public static class SwaggerOptionsExtensions
             }
         });
 
+#if NET10_0_OR_GREATER
+        swaggerGenOptions.AddSecurityRequirement(OpenApiDocument => new OpenApiSecurityRequirement
+        {
+            { new OpenApiSecuritySchemeReference(SchemeId, OpenApiDocument), [] }
+        });
+#else
         swaggerGenOptions.AddSecurityRequirement(new OpenApiSecurityRequirement
         {
             {
@@ -81,13 +93,14 @@ public static class SwaggerOptionsExtensions
                 {
                     Reference = new OpenApiReference
                     {
-                        Id = "oAuth2",
+                        Id = SchemeId,
                         Type = ReferenceType.SecurityScheme
                     }
                 },
-                Array.Empty<string>()
+                []
             }
         });
+#endif
 
         swaggerGenOptions.OperationFilter<SecurityRequirementsOperationFilter>();
     }

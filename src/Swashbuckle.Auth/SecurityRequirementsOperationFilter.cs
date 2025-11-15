@@ -1,6 +1,10 @@
 ﻿using System.Linq;
 using Microsoft.AspNetCore.Authorization;
+#if NET10_0_OR_GREATER
+using Microsoft.OpenApi;
+#else
 using Microsoft.OpenApi.Models;
+#endif
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Ctyar.Swashbuckle.Auth;
@@ -17,6 +21,8 @@ internal class SecurityRequirementsOperationFilter : IOperationFilter
         {
             return;
         }
+
+        operation.Responses ??= [];
 
         operation.Responses.Add("401", new OpenApiResponse { Description = "Unauthorized" });
         operation.Responses.Add("403", new OpenApiResponse { Description = "Forbidden" });
